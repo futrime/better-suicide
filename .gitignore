@@ -56,3 +56,9 @@ _deps
 ## Project specific
 # Output files
 /bin/
+
+# IDE files
+/.vscode/
+
+# clangd cache
+/.cache/
