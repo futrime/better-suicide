@@ -5,7 +5,7 @@ if not has_config("vs_runtime") then
     set_runtimes("MD")
 end
 
-target("levilamina-plugin-template") -- Change this to your plugin name.
+target("better-suicide") -- Change this to your plugin name.
     add_cxflags(
         "/utf-8",
         "/permissive-",
