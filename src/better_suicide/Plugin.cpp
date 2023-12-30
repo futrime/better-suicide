@@ -82,16 +82,14 @@ bool Plugin::enable() {
                 auto& player    = event.self();
                 auto& itemStack = event.item();
 
-                logger.info("{} used {}", player.getRealName(), itemStack.getRawNameId());
-
                 if (itemStack.getRawNameId() == "clock") {
                     ll::form::ModalForm form(
                         "Warning",
                         "Are you sure you want to kill yourself?",
-                        "No",
                         "Yes",
-                        [&logger](Player& player, bool isCanceled) {
-                            if (!isCanceled) {
+                        "No",
+                        [&logger](Player& player, bool yes) {
+                            if (!yes) {
                                 player.kill();
 
                                 logger.info("{} killed themselves", player.getRealName());
@@ -100,8 +98,6 @@ bool Plugin::enable() {
                     );
 
                     form.sendTo(player);
-
-                    logger.info("{} opened better-suicide menu", player.getRealName());
                 }
             }
         }
