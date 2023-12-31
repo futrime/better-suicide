@@ -4,22 +4,19 @@
 
 #include <ll/api/base/KeyValueDB.h>
 #include <ll/api/event/ListenerBase.h>
-#include <ll/api/plugin/Plugin.h>
+#include <ll/api/plugin/NativePlugin.h>
 
 #include "Config.h"
 
-namespace better_suicide {
+namespace plugin {
 
 class Plugin {
 public:
-    Plugin(ll::plugin::Plugin& self);
+    Plugin(ll::plugin::NativePlugin& self);
 
     Plugin(const Plugin&) = delete;
-
     Plugin(const Plugin&&) = delete;
-
     Plugin& operator=(const Plugin&) = delete;
-
     Plugin& operator=(const Plugin&&) = delete;
 
     ~Plugin() = default;
@@ -33,7 +30,7 @@ public:
 private:
     Config                        mConfig;
     std::unique_ptr<ll::KeyValueDB> mPlayerDb;
-    ll::plugin::Plugin&           mSelf;
+    ll::plugin::NativePlugin&           mSelf;
 
     // Event listeners
     ll::event::ListenerPtr mPlayerJoinEventListener;
@@ -41,4 +38,4 @@ private:
     ll::event::ListenerPtr mSetupCommandEventListener;
 };
 
-} // namespace better_suicide
+} // namespace plugin

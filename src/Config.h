@@ -1,6 +1,6 @@
 #pragma once
 
-namespace better_suicide {
+namespace plugin {
 
 struct Config {
     int  version          = 1;
@@ -8,4 +8,4 @@ struct Config {
     bool enableClockMenu = true;
 };
 
-} // namespace better_suicide
+} // namespace plugin
