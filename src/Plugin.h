@@ -12,11 +12,11 @@ namespace plugin {
 
 class Plugin {
 public:
-    Plugin(ll::plugin::NativePlugin& self);
+    explicit Plugin(ll::plugin::NativePlugin& self);
 
-    Plugin(const Plugin&) = delete;
-    Plugin(const Plugin&&) = delete;
-    Plugin& operator=(const Plugin&) = delete;
+    Plugin(const Plugin&)             = delete;
+    Plugin(const Plugin&&)            = delete;
+    Plugin& operator=(const Plugin&)  = delete;
     Plugin& operator=(const Plugin&&) = delete;
 
     ~Plugin() = default;
@@ -28,14 +28,13 @@ public:
     bool disable();
 
 private:
-    Config                        mConfig;
+    Config                          mConfig;
     std::unique_ptr<ll::KeyValueDB> mPlayerDb;
-    ll::plugin::NativePlugin&           mSelf;
+    ll::plugin::NativePlugin&       mSelf;
 
     // Event listeners
     ll::event::ListenerPtr mPlayerJoinEventListener;
     ll::event::ListenerPtr mPlayerUseItemEventListener;
-    ll::event::ListenerPtr mSetupCommandEventListener;
 };
 
 } // namespace plugin
