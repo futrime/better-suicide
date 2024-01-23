@@ -1,15 +1,17 @@
 add_rules("mode.debug", "mode.release", "mode.releasedbg")
 
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
-add_requires("levilamina 0.3.0")
+add_requires("levilamina 0.5.1")
 
 target("better-suicide")
     add_cxflags(
-        "/EHa",
-        "/utf-8"
+        "/EHa", -- To catch both structured (asynchronous) and standard C++ (synchronous) exceptions.
+        "/utf-8" -- To enable UTF-8 source code.
     )
     add_defines(
-        "_HAS_CXX23=1" -- To enable C++23 features
+        "_HAS_CXX23=1", -- To enable C++23 features
+        "NOMINMAX", -- To avoid conflicts with std::min and std::max.
+        "UNICODE" -- To enable Unicode support in Windows API.
     )
     add_files(
         "src/**.cpp"
@@ -21,9 +23,9 @@ target("better-suicide")
         "levilamina"
     )
     add_shflags(
-        "/DELAYLOAD:bedrock_server.dll" -- Magic to import symbols from BDS
+        "/DELAYLOAD:bedrock_server.dll" -- To use forged symbols of SymbolProvider.
     )
-    set_exceptions("none") -- To avoid conflicts with /EHa
+    set_exceptions("none") -- To avoid conflicts with /EHa.
     set_kind("shared")
     set_languages("cxx20")
 
