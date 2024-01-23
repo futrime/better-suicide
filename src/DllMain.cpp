@@ -1,8 +1,7 @@
-#include <memory>
+#include "Plugin.h"
 
 #include <ll/api/plugin/NativePlugin.h>
-
-#include "Plugin.h"
+#include <memory>
 
 namespace plugin {
 
@@ -16,13 +15,11 @@ _declspec(dllexport) bool ll_plugin_load(ll::plugin::NativePlugin& self) {
     return true;
 }
 
-/// @warning Unloading the plugin may cause a crash if the plugin has not released all of its
-/// resources. If you are unsure, keep this function commented out.
-// _declspec(dllexport) bool ll_plugin_unload(ll::plugin::NativePlugin&) {
-//     plugin.reset();
-//
-//     return true;
-// }
+_declspec(dllexport) bool ll_plugin_unload(ll::plugin::NativePlugin&) {
+    plugin.reset();
+
+    return true;
+}
 
 _declspec(dllexport) bool ll_plugin_enable(ll::plugin::NativePlugin&) { return plugin->enable(); }
 
