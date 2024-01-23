@@ -7,7 +7,7 @@ Allow players to suicide in Minecraft.
 Use lip to install.
 
 ```powershell
-lip install github.com/tooth-hub/better-suicide
+lip install github.com/futrime/better-suicide
 ```
 
 ## Usage
