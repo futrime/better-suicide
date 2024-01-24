@@ -54,7 +54,6 @@ jobs:
 
       - uses: softprops/action-gh-release@v1
         with:
-          append_body: true
           body: |
             ${{ steps.extract-release-notes.outputs.release_notes }}
           files: |
