@@ -1,14 +1,14 @@
 {
     "format_version": 2,
     "tooth": "github.com/futrime/better-suicide",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "info": {
         "name": "better-suicide",
         "description": "Allow players to suicide in Minecraft.",
         "author": "futrime",
         "tags": [
-            "platform:levilamina",
-            "type:plugin"
+            "levilamina",
+            "plugin"
         ]
     },
     "asset_url": "https://github.com/futrime/better-suicide/releases/download/v0.4.0/better-suicide-windows-x64.zip",
