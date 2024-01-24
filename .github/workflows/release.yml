@@ -49,8 +49,13 @@ jobs:
           zip -r ../${{ github.event.repository.name }}-windows-x64.zip *
           cd ..
 
+      - id: extract-release-notes
+        uses: ffurrer2/extract-release-notes@v1
+
       - uses: softprops/action-gh-release@v1
         with:
           append_body: true
+          body: |
+            ${{ steps.extract-release-notes.outputs.release_notes }}
           files: |
             ${{ github.event.repository.name }}-windows-x64.zip
