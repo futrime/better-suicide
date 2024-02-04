@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Adapt to LeviLamina 0.6.3.
 
+## [0.4.1] - 2024-01-24
+
+### Fixed
+
+- Failed to install with lip.
+
 ## [0.4.0] - 2024-01-23
 
 ### Changed
@@ -42,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Basic functionality.
 
-[0.5.0]: https://github.com/futrime/better-suicide/compare/v0.4.0...v0.5.0
+[0.5.0]: https://github.com/futrime/better-suicide/compare/v0.4.1...v0.5.0
+[0.4.1]: https://github.com/futrime/better-suicide/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/futrime/better-suicide/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/futrime/better-suicide/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/futrime/better-suicide/compare/v0.1.1...v0.2.0
