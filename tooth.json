@@ -13,7 +13,7 @@
     },
     "asset_url": "https://github.com/futrime/better-suicide/releases/download/v0.5.0/better-suicide-windows-x64.zip",
     "prerequisites": {
-        "github.com/LiteLDev/LeviLamina": "0.5.x"
+        "github.com/LiteLDev/LeviLamina": "0.6.x >=0.6.3"
     },
     "files": {
         "place": [
