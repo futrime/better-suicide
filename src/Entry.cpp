@@ -24,6 +24,7 @@
 #include <mc/world/item/registry/ItemStack.h>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 namespace better_suicide {
 
