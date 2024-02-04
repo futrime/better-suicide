@@ -1,7 +1,11 @@
 add_rules("mode.debug", "mode.release", "mode.releasedbg")
 
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
-add_requires("levilamina 0.5.1")
+add_requires("levilamina 0.6.3")
+
+if not has_config("vs_runtime") then
+    set_runtimes("MD")
+end
 
 target("better-suicide")
     add_cxflags(

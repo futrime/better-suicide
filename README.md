@@ -40,4 +40,4 @@ This project follows the [Contributor Covenant](https://www.contributor-covenant
 
 ## License
 
-LGPL-3.0-only © futrime
+GPL-3.0-only © futrime
