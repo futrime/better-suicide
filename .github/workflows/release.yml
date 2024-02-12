@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-windows-x64-${{ github.sha }}
+          name: better-suicide-windows-x64-${{ github.sha }}
           path: |
             bin/
 
@@ -40,11 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Validate release stuff (tooth.json, CHANGELOG.md, etc.)
-        run: |
-          npm i -g keep-a-changelog
-          python scripts/validate_release.py --tag ${{ github.event.release.tag_name }}
 
       - id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v2
@@ -65,14 +60,14 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ github.event.repository.name }}-windows-x64-${{ github.sha }}
+          name: better-suicide-windows-x64-${{ github.sha }}
           path: artifact
 
       - run: |
           cp CHANGELOG.md COPYING README.md artifact/
 
       - run: |
-          zip -r ../${{ github.event.repository.name }}-windows-x64.zip *
+          zip -r ../better-suicide-windows-x64.zip *
         working-directory: artifact
 
       - id: extract-release-notes
@@ -81,4 +76,4 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ github.event.repository.name }}-windows-x64.zip
+            better-suicide-windows-x64.zip

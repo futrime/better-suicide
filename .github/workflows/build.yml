@@ -38,7 +38,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ github.event.repository.name }}-windows-x64-${{ github.sha }}
+          name: better-suicide-windows-x64-${{ github.sha }}
           path: |
             bin/
 
