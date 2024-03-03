@@ -5,7 +5,9 @@
 #include <fmt/format.h>
 #include <functional>
 #include <ll/api/Config.h>
-#include <ll/api/command/DynamicCommand.h>
+#include <ll/api/command/Command.h>
+#include <ll/api/command/CommandHandle.h>
+#include <ll/api/command/CommandRegistrar.h>
 #include <ll/api/data/KeyValueDB.h>
 #include <ll/api/event/EventBus.h>
 #include <ll/api/event/ListenerBase.h>
@@ -67,14 +69,6 @@ auto disable(ll::plugin::NativePlugin& /*self*/) -> bool {
     eventBus.removeListener(playerJoinEventListener);
     eventBus.removeListener(playerUseItemEventListener);
 
-    // Unregister commands.
-    auto commandRegistry = ll::service::getCommandRegistry();
-    if (!commandRegistry) {
-        throw std::runtime_error("failed to get command registry");
-    }
-
-    commandRegistry->unregisterCommand("suicide");
-
     logger.info("disabled");
 
     return true;
@@ -125,21 +119,15 @@ auto enable(ll::plugin::NativePlugin& /*self*/) -> bool {
                 auto& itemStack = event.item();
 
                 if (itemStack.getRawNameId() == "clock") {
-                    ll::form::ModalForm form(
-                        "Warning",
-                        "Are you sure you want to kill yourself?",
-                        "Yes",
-                        "No",
-                        [&logger](Player& player, bool yes) {
-                            if (yes) {
-                                player.kill();
+                    ll::form::ModalForm form("Warning", "Are you sure you want to kill yourself?", "Yes", "No");
 
-                                logger.info("{} killed themselves", player.getRealName());
-                            }
+                    form.sendTo(player, [&logger](Player& player, ll::form::ModalForm::SelectedButton button) {
+                        if (button == ll::form::ModalForm::SelectedButton::Upper) {
+                            player.kill();
+
+                            logger.info("{} killed themselves", player.getRealName());
                         }
-                    );
-
-                    form.sendTo(player);
+                    });
                 }
             }
         });
@@ -150,24 +138,20 @@ auto enable(ll::plugin::NativePlugin& /*self*/) -> bool {
         throw std::runtime_error("failed to get command registry");
     }
 
-    auto command =
-        DynamicCommand::createCommand(commandRegistry, "suicide", "Commits suicide.", CommandPermissionLevel::Any);
-    command->addOverload();
-    command->setCallback(
-        [&logger](DynamicCommand const&, CommandOrigin const& origin, CommandOutput& output, std::unordered_map<std::string, DynamicCommand::Result>&) {
-            auto* entity = origin.getEntity();
-            if (entity == nullptr || !entity->isType(ActorType::Player)) {
-                output.error("Only players can commit suicide");
-                return;
-            }
-
-            auto* player = static_cast<Player*>(entity); // NOLINT(cppcoreguidelines-pro-type-static-cast-downcast)
-            player->kill();
-
-            logger.info("{} killed themselves", player->getRealName());
+    auto& command = ll::command::CommandRegistrar::getInstance()
+                        .getOrCreateCommand("suicide", "Commits suicide.", CommandPermissionLevel::Any);
+    command.overload().execute<[](CommandOrigin const& origin, CommandOutput& output) {
+        auto* entity = origin.getEntity();
+        if (entity == nullptr || !entity->isType(ActorType::Player)) {
+            output.error("Only players can commit suicide");
+            return;
         }
-    );
-    DynamicCommand::setup(commandRegistry, std::move(command));
+
+        auto* player = static_cast<Player*>(entity); // NOLINT(cppcoreguidelines-pro-type-static-cast-downcast)
+        player->kill();
+
+        getSelfPluginInstance().getLogger().info("{} killed themselves", player->getRealName());
+    }>();
 
     logger.info("enabled");
 
