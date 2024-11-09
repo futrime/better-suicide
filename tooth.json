@@ -10,7 +10,7 @@
             "levilamina",
             "plugin"
         ],
-        "avatarUrl": ""
+        "avatarUrl": "https://raw.githubusercontent.com/LiteLDev/bds/HEAD/logo.png"
     },
     "asset_url": "https://github.com/futrime/better-suicide/releases/download/v0.6.0/better-suicide-windows-x64.zip",
     "prerequisites": {
